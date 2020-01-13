@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= Hippo.name %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+    <div class = "container">
+        <div class = "hippos">
+            <h1><%= Hippo.name %> the Hippo!</h1>
+            <h5>-<%= Hippo.description %></h5>
+            <form class = "form-group" action="/edit/<%= Hippo.id %>" method="POST">
+                <label>Edit <%= Hippo.name %>'s Name:</label>
+                <input type="text" name="name" id="name">
+                <br>
+                <label>Edit Description:</label>
+                <input type="text" name="description" id="description" placeholder="<%= Hippo.description %>">
+                <br>
+                <button id="create" type="submit" value="edit">Edit Hippo</button>
+            </form>
+            <button id="skip"><a href="/">Show all Hippos!</a></button>
+            <button id="destroy"><a href="/destroy/<%= Hippo.id %>">Destroy this Hippo! D:</a></button>
+        </div>
+    </div>
+</body>
+</html>

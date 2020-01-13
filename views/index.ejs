@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Creation</title>
+    <title>Hippo Creation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
     <div class = "container">
-        <h1>Welcome to Quoting Dojo</h1>
+        <h1>Upload a new Hippo!</h1>
         <div class = "signup">
-    <form class = "form-group" action="/users" method="POST">
-        <label>Your Name:</label>
+    <form class = "form-group" action="/create" method="POST">
+        <label>Hippo Name:</label>
         <input type="text" name="name" id="name">
         <br>
-        <label>Your Quote:</label>
-        <input type="text" name="quote" id="quote" >
+        <label>Hippo Description:</label>
+        <input type="text" name="description" id="description" >
         <br>
-        <button id="create" type="submit" value="Create">Create Quote</button>
+        <button id="create" type="submit" value="Create">Create Hippo</button>
     </form>
-    <button id="skip"><a href="/quotes">Skip to Quotes!</a></button>
+    <button id="skip"><a href="/">Show all Hippos!</a></button>
         </div>
     </div> 
 </body>
