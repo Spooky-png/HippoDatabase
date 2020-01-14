@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Messageboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+    <div class = "container">
+        <div class = "message"> 
+<% if(messages.registration) { %>
+     <% for (var x of messages.registration) { %>
+      <p style="color:red"><%= x %></p>
+     <% } %>
+ <% } %>
+            <h1>The Coding Dojo Message Board!<h1>
+            <form class = "form-group" action="/user" method="POST">
+                <p>Name:</p>
+                <input type="text" name="name" id="name">
+                <br>
+                <p>Message:</p>
+                <textarea type="text" name="message" id="message" rows="3" cols="30"></textarea>
+                <br>
+                <button id="create" type="submit" value="Create">Post Message</button>
+            </form>
+        </div>
+        <div class = "comments">
+    <% if (Users) { %>
+        <% for (var user of Users){ %>
+            <h4>Name: <%= user.name %></h4>
+            <h5>Message: <%= user.message %></h5>
+            <div class ="babycomments">
+            <% if (user.comments) { %>
+            <% for (var comment of user.comments){ %>
+                <p>Name: <%= comment.name %></p>
+                <p>Comment: <%= comment.message %></p>
+        <% } } %>
+        <form class = "form-group" action="/comment/<%= user.id %>" method="POST">
+            <label>Name:</label>
+            <input type="text" name="name" id="name">
+            <br>
+            <label>Comment:</label>
+            <textarea type="text" name="message" id="message" rows="2" cols="30"></textarea>
+            <br>
+            <button id="create" type="submit" value="Create">Post Comment</button>
+        </form>
+    </div>
+        <% } } %>
+        </div>
+    </div>
+</body>
+</html>

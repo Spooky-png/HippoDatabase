@@ -17,6 +17,19 @@ const HippoSchema = new mongoose.Schema({
 }, {timestamps: true })
 const Hippo = mongoose.model('Hippo', HippoSchema);
 
+const CommentSchema = new mongoose.Schema({
+    name: {type: String, required: true, minlength: 2},
+    message: {type: String, required: true},
+}, {timestamps: true })
+const Comment = mongoose.model('Comment', CommentSchema);
+
+const UserSchema = new mongoose.Schema({
+    name: {type: String, required: true, minlength: 2},
+    message: {type: String, required: true},
+    comments: [CommentSchema]
+}, {timestamps: true })
+const User = mongoose.model('User', UserSchema);
+
 const flash = require('express-flash');
 app.use(flash());
 app.post('/create', (req, res) => {
@@ -26,7 +39,7 @@ app.post('/create', (req, res) => {
     hippo.save()
         .then(newUserData => {
             console.log('Hippo logged: ', newHippoData)
-            res.redirect('/quotes');
+            res.redirect('/');
         })
         .catch(err => {
             console.log("We have an error!", err);
@@ -81,6 +94,41 @@ app.get('/destroy/:id', (req, res) => {
         })
         .catch(err => res.json(err));
 })
+app.get('/messageboard', (req, res) => {
+    User.find()
+    .then(data => res.render("messageboard", { Users: data }))
+    .catch(err => res.json(err));
+});
+
+app.post('/user', (req, res) => {
+    const user = new User();
+    user.name = req.body.name;
+    user.message = req.body.message;
+    user.save()
+        .then(newUserData => {
+            res.redirect('/messageboard');
+        })
+        .catch(err => {
+                req.flash('registration', 'Both Fields are required');
+            res.redirect('/messageboard');
+        });
+});
+
+app.post('/comment/:id', (req, res) => {
+    const comment = new Comment();
+    comment.name = req.body.name;
+    comment.message = req.body.message;
+    comment.save()
+        .then(data => {
+            User.findOneAndUpdate({_id: req.params.id}, {$push: {comments: data}}, function(err, data){
+                res.redirect('/messageboard');
+            })
+        })
+        .catch(err => {
+            req.flash('registration', 'Both Fields are required');
+            res.redirect('/messageboard');
+        });
+});
 
 app.listen(8000, function () {
     console.log("server running on port 8000");
