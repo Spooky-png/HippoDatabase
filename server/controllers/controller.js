@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Hippo = require('../models/hippo');
-const Comment = require('../models/comment');
-const User = require('../models/users');
+const Hippo = require('../models/user');
+const Comment = require('../models/user');
+const User = require('../models/user');
 
 module.exports = {
     index: function(req, res){
