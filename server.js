@@ -1,5 +1,5 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+app = express();
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/static"));
 app.set('views', __dirname + '/views');
@@ -7,6 +7,7 @@ app.use(express.urlencoded());
 const session = require('express-session');
 const mongoose = require('mongoose');
 const flash = require('express-flash');
+require('./server/config/routes.js')(app)
 app.use(flash());
 app.use(session({
     secret: '4235rfadsa32rq',
@@ -42,8 +43,6 @@ const UserSchema = new mongoose.Schema({
 mongoose.model('User', UserSchema);
 
 const User = mongoose.model('User')
-
-require('./server/config/routes.js')(app)
 
 app.listen(8000, function () {
     console.log("server running on port 8000");
